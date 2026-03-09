@@ -1,0 +1,93 @@
+# =====================================
+# Librería datos v0.1
+# Mini DataFrame para Latino
+# =====================================
+
+# crear tabla
+funcion crear(columnas)
+    df = {}
+
+    df["columnas"] = columnas
+    df["filas"] = []
+    retornar df
+fin
+
+# agregar fila
+funcion agregar_fila(df, valores)
+    fila = {}
+    columnas = df["columnas"]
+    
+    i = 0
+    
+    mientras i < lista.longitud(columnas)
+        columna = columnas[i]
+        valor = valores[i]
+        fila[columna] = valor
+        i = i ++
+    fin
+fin
+
+#contar filas
+funcion contar_filas(df)
+    retornar lista.longitud(df["filas"])
+fin
+
+#mostrar tabla
+funcion mostrar(df)
+    columnas = df["columnas"]
+    filas = df["filas"]
+    
+    # Imprimir encabezado
+    i = 0
+    mientras i < lista.longitud(columnas)
+        escribir(columnas[i], " | ")
+        i = i ++
+    fin
+    escribir ("")
+    escribir("-------------------------------")
+
+    # Imprimir filas
+    f = 0
+    mientras f < lista.longitud(filas)
+        fila = filas[f]
+        j = 0
+        mientras j < lista.longitud(columnas)
+            escribir(fila[columnas[j]], " | ")
+            j = j ++
+        fin
+        escribir("")
+        i = i ++
+    fin
+fin
+
+#filtrar filas
+funcion filtrar(df, columna, operador, valor)
+    nueva_df = crear(df["columnas"])
+    filas = df["filas"]
+
+    i=0
+    mientras i < lista.longitud(filas)
+        fila = filas[i]
+        v = fila[columna]
+        condicion = falso
+        
+        si operador == "="
+            condicion = v == valor
+        osi operador == ">"
+            condicion = v > valor
+        osi operador == "<"
+            condicion = v < valor
+        osi operador == ">="
+            condicion = v >= valor
+        osi operador == "<="
+            condicion = v <= valor
+        osi operador == "!="
+            condicion = v != valor
+        fin
+        si condicion
+            lista.agregar(nueva_df["filas"], fila)
+        fin
+        i = i ++
+    fin
+    retornar nueva_df
+fin
