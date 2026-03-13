@@ -1,12 +1,11 @@
 # =====================================
-# Librería datos v0.1
+# Librería datos_education v1.0
 # Mini DataFrame para Latino
 # =====================================
 
 # crear tabla
 funcion crear(columnas)
     df = {}
-
     df["columnas"] = columnas
     df["filas"] = []
     retornar df
@@ -16,61 +15,60 @@ fin
 funcion agregar_fila(df, valores)
     fila = {}
     columnas = df["columnas"]
-    
     i = 0
-    
     mientras i < lista.longitud(columnas)
-        columna = columnas[i]
-        valor = valores[i]
-        fila[columna] = valor
-        i = i ++
+        fila[columnas[i]] = valores[i]
+        i = i + 1
     fin
+    lista.agregar(df["filas"], fila)
 fin
 
-#contar filas
+# contar filas
 funcion contar_filas(df)
     retornar lista.longitud(df["filas"])
 fin
 
-#mostrar tabla
+# mostrar tabla
 funcion mostrar(df)
     columnas = df["columnas"]
     filas = df["filas"]
-    
-    # Imprimir encabezado
+
+    # construir encabezado en un solo string
+    encabezado = ""
     i = 0
     mientras i < lista.longitud(columnas)
-        escribir(columnas[i], " | ")
-        i = i ++
+        encabezado = encabezado .. columnas[i] .. " | "
+        i = i + 1
     fin
-    escribir ("")
+    escribir(encabezado)
     escribir("-------------------------------")
 
-    # Imprimir filas
+    # construir cada fila en un solo string
     f = 0
     mientras f < lista.longitud(filas)
         fila = filas[f]
+        linea = ""
         j = 0
         mientras j < lista.longitud(columnas)
-            escribir(fila[columnas[j]], " | ")
-            j = j ++
+            linea = linea .. fila[columnas[j]] .. " | "
+            j = j + 1
         fin
-        escribir("")
-        i = i ++
+        escribir(linea)
+        f = f + 1
     fin
 fin
 
-#filtrar filas
+# filtrar filas
 funcion filtrar(df, columna, operador, valor)
-    nueva_df = crear(df["columnas"])
+    nueva_df = {}
+    nueva_df["columnas"] = df["columnas"]
+    nueva_df["filas"] = []
     filas = df["filas"]
-
-    i=0
+    i = 0
     mientras i < lista.longitud(filas)
         fila = filas[i]
         v = fila[columna]
         condicion = falso
-        
         si operador == "="
             condicion = v == valor
         osi operador == ">"
@@ -87,7 +85,15 @@ funcion filtrar(df, columna, operador, valor)
         si condicion
             lista.agregar(nueva_df["filas"], fila)
         fin
-        i = i ++
+        i = i + 1
     fin
     retornar nueva_df
 fin
+
+retornar {
+    "crear": crear,
+    "agregar_fila": agregar_fila,
+    "contar_filas": contar_filas,
+    "mostrar": mostrar,
+    "filtrar": filtrar
+}

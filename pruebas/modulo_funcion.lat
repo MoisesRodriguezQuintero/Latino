@@ -1,0 +1,6 @@
+funcion esc(valor)
+    
+    retornar valor
+fin
+
+retornar {"esc" : esc}

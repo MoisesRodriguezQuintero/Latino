@@ -1,0 +1,6 @@
+y = incluir ("modulo_funcion")
+
+var = "Hola desde el módulo de función"
+
+let = y.esc(var)
+ escribir (let)

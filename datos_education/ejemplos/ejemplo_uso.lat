@@ -1,0 +1,19 @@
+y = incluir("../src/datos")
+
+df = y.crear(["nombre","edad","pais"])
+
+y.agregar_fila(df, ["Ana",25,"Chile"])
+y.agregar_fila(df, ["Luis",30,"México"])
+y.agregar_fila(df, ["Pedro",17,"Argentina"])
+
+y.mostrar(df)
+
+escribir("")
+escribir("Total filas:")
+escribir(y.contar_filas(df))
+
+adultos = y.filtrar(df, "edad", ">", 18)
+
+escribir("")
+escribir("Adultos:")
+y.mostrar(adultos)
