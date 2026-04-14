@@ -1,7 +1,9 @@
 # =====================================
-# Librería datos_education v1.0
+# Librería datos v2.0
 # Mini DataFrame para Latino
 # =====================================
+
+incluir("lista")
 
 # crear tabla
 funcion crear(columnas)
@@ -33,7 +35,6 @@ funcion mostrar(df)
     columnas = df["columnas"]
     filas = df["filas"]
 
-    # construir encabezado en un solo string
     encabezado = ""
     i = 0
     mientras i < lista.longitud(columnas)
@@ -43,7 +44,6 @@ funcion mostrar(df)
     escribir(encabezado)
     escribir("-------------------------------")
 
-    # construir cada fila en un solo string
     f = 0
     mientras f < lista.longitud(filas)
         fila = filas[f]
@@ -90,10 +90,85 @@ funcion filtrar(df, columna, operador, valor)
     retornar nueva_df
 fin
 
+# eliminar fila por índice
+funcion eliminar_fila(df, indice)
+    filas = df["filas"]
+    nueva_lista = []
+    i = 0
+    mientras i < lista.longitud(filas)
+        si i != indice
+            lista.agregar(nueva_lista, filas[i])
+        fin
+        i = i + 1
+    fin
+    df["filas"] = nueva_lista
+fin
+
+# actualizar celda
+funcion actualizar(df, indice, columna, valor)
+    df["filas"][indice][columna] = valor
+fin
+
+# seleccionar columnas
+funcion seleccionar(df, columnas)
+    nueva_df = {}
+    nueva_df["columnas"] = columnas
+    nueva_df["filas"] = []
+    filas = df["filas"]
+    i = 0
+    mientras i < lista.longitud(filas)
+        fila = filas[i]
+        nueva_fila = {}
+        j = 0
+        mientras j < lista.longitud(columnas)
+            nueva_fila[columnas[j]] = fila[columnas[j]]
+            j = j + 1
+        fin
+        lista.agregar(nueva_df["filas"], nueva_fila)
+        i = i + 1
+    fin
+    retornar nueva_df
+fin
+
+# ordenar por columna (algoritmo burbuja)
+funcion ordenar(df, columna, ascendente)
+    filas = df["filas"]
+    n = lista.longitud(filas)
+    i = 0
+    mientras i < n - 1
+        j = 0
+        mientras j < n - i - 1
+            a = filas[j][columna]
+            b = filas[j + 1][columna]
+            intercambiar = falso
+            si ascendente
+                si a > b
+                    intercambiar = verdadero
+                fin
+            sino
+                si a < b
+                    intercambiar = verdadero
+                fin
+            fin
+            si intercambiar
+                temp = filas[j]
+                filas[j] = filas[j + 1]
+                filas[j + 1] = temp
+            fin
+            j = j + 1
+        fin
+        i = i + 1
+    fin
+fin
+
 retornar {
-    "crear": crear,
-    "agregar_fila": agregar_fila,
-    "contar_filas": contar_filas,
-    "mostrar": mostrar,
-    "filtrar": filtrar
+    "crear"         : crear,
+    "agregar_fila"  : agregar_fila,
+    "contar_filas"  : contar_filas,
+    "mostrar"       : mostrar,
+    "filtrar"       : filtrar,
+    "eliminar_fila" : eliminar_fila,
+    "actualizar"    : actualizar,
+    "seleccionar"   : seleccionar,
+    "ordenar"       : ordenar
 }

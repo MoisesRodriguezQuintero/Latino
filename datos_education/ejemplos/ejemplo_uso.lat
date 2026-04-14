@@ -17,3 +17,5 @@ adultos = y.filtrar(df, "edad", ">", 18)
 escribir("")
 escribir("Adultos:")
 y.mostrar(adultos)
+
+y.eliminar_fila(df, 2)
